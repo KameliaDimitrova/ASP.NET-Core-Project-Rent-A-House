@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentAHouse.Data;
 
@@ -11,9 +12,10 @@ using RentAHouse.Data;
 namespace RentAHouse.Data.Migrations
 {
     [DbContext(typeof(RentAHouseDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220912120111_HouseAndRegionsTables")]
+    partial class HouseAndRegionsTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,6 +234,9 @@ namespace RentAHouse.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("BathroomsCount")
+                        .HasColumnType("int");
+
                     b.Property<int>("BedroomsCount")
                         .HasColumnType("int");
 
@@ -243,15 +248,6 @@ namespace RentAHouse.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MunicipalityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RegionId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("RentalPrice")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("SettlementId")
                         .HasColumnType("int");
 
@@ -262,10 +258,6 @@ namespace RentAHouse.Data.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MunicipalityId");
-
-                    b.HasIndex("RegionId");
 
                     b.HasIndex("SettlementId");
 
@@ -386,27 +378,11 @@ namespace RentAHouse.Data.Migrations
 
             modelBuilder.Entity("RentAHouse.Data.Model.House", b =>
                 {
-                    b.HasOne("RentAHouse.Data.Model.Municipality", "Municipality")
-                        .WithMany()
-                        .HasForeignKey("MunicipalityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RentAHouse.Data.Model.Region", "Region")
-                        .WithMany()
-                        .HasForeignKey("RegionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RentAHouse.Data.Model.Settlement", "Settlement")
                         .WithMany("Houses")
                         .HasForeignKey("SettlementId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Municipality");
-
-                    b.Navigation("Region");
 
                     b.Navigation("Settlement");
                 });

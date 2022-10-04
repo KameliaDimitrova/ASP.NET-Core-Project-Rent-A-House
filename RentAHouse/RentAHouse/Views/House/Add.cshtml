@@ -1,0 +1,78 @@
+﻿@model AddHouseFormModel
+@{
+    ViewData["Title"] = "Add house";
+}
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="form-group col-4">
+                <label asp-for="BedroomsCount"></label>
+                <select asp-for="BedroomsCount" class="form-control">
+                    <option>--Избери--</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+                <span asp-validation-for="BedroomsCount" class="small text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4">
+                <label asp-for="RegionId"></label>
+                <select asp-for="RegionId" id="region-drop-down-list" class="form-control">
+                    <option>--Избери--</option>
+                    @foreach (var region in Model.Regions)
+                    {
+                        <option value="@region.Id">@region.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="RegionId" class="small text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="MunicipalityId"></label>
+                <select asp-for="MunicipalityId" disabled id="municipality-drop-down-list" class="form-control">
+                    <option>--Избери--</option>
+                </select>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="SettlementId"></label>
+                <select asp-for="SettlementId" disabled id="settlement-drop-down-list" class="form-control">
+                    <option>--Избери--</option>
+                </select>
+                <span asp-validation-for="SettlementId" class="small text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4">
+                <label asp-for="RentalPrice"></label>
+                <input asp-for="RentalPrice" class="form-control">
+                <span asp-validation-for="RentalPrice" class="small text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="TotalArea"></label>
+                <input asp-for="TotalArea" class="form-control" />
+                <span asp-validation-for="TotalArea" class="small text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="YardArea"></label>
+                <input asp-for="YardArea" class="form-control" />
+                <span asp-validation-for="YardArea" class="small text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" type="file" name="images" multiple class="form-control" />
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group col-8">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Описание на имота..."></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </form>
+</div>

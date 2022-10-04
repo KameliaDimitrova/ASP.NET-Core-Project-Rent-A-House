@@ -8,7 +8,7 @@ using RentAHouse.Data;
 using System;
 
 namespace RentAHouse.Data.Migrations;
-[DbContext(typeof(ApplicationDbContext))]
+[DbContext(typeof(RentAHouseDbContext))]
 [Migration("00000000000000_CreateIdentitySchema")]
 partial class CreateIdentitySchema
 {
